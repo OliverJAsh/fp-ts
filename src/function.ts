@@ -199,6 +199,18 @@ export function flow<A extends ReadonlyArray<unknown>, B, C, D, E, F, G, H, I, J
   hi: (h: H) => I,
   ij: (i: I) => J
 ): (...a: A) => J
+export function flow<A extends ReadonlyArray<unknown>, B, C, D, E, F, G, H, I, J, K>(
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+  cd: (c: C) => D,
+  de: (d: D) => E,
+  ef: (e: E) => F,
+  fg: (f: F) => G,
+  gh: (g: G) => H,
+  hi: (h: H) => I,
+  ij: (i: I) => J,
+  jk: (j: J) => K
+): (...a: A) => J
 export function flow(
   ab: Function,
   bc?: Function,
@@ -208,7 +220,8 @@ export function flow(
   fg?: Function,
   gh?: Function,
   hi?: Function,
-  ij?: Function
+  ij?: Function,
+  jk?: Function
 ): unknown {
   switch (arguments.length) {
     case 1:
@@ -244,6 +257,10 @@ export function flow(
     case 9:
       return function (this: unknown) {
         return ij!(hi!(gh!(fg!(ef!(de!(cd!(bc!(ab.apply(this, arguments)))))))))
+      }
+    case 10:
+      return function (this: unknown) {
+        return jk!(ij!(hi!(gh!(fg!(ef!(de!(cd!(bc!(ab.apply(this, arguments))))))))))
       }
   }
   return
